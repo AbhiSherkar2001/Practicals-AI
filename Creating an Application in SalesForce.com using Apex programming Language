@@ -1,0 +1,69 @@
+Creating an Application in Salesforce.com Using Apex Programming 
+
+
+1. Prerequisites
+A Salesforce Developer Account
+Sign up at: https://developer.salesforce.com/signup
+Internet access and a modern web browser
+
+2. Log in to Salesforce Developer Console
+Open: https://login.salesforce.com
+Log in using your Developer account
+Click on the gear icon → Developer Console
+
+3. Create a Custom Object (Part of the Application)
+Go to Setup → Search for Objects → Click Object Manager
+Click Create → Custom Object
+Fill details:
+
+Label: Student
+
+Plural Label: Students
+
+Object Name: Student
+
+Enable options like "Allow Reports", "Track Field History", and click Save
+
+Add custom fields (e.g., Name, Email, Course, Marks)
+
+4. Create an Apex Class
+In the Developer Console:
+Click File → New → Apex Class
+Name: StudentHandler
+Paste the following code:
+public class StudentHandler {
+    
+    // Method to insert a student record
+    public static void createStudent(String name, String email, String course, Integer marks) {
+        Student__c s = new Student__c();
+        s.Name = name;
+        s.Email__c = email;
+        s.Course__c = course;
+        s.Marks__c = marks;
+        insert s;
+    }
+
+    // Method to fetch all students
+    public static List<Student__c> getAllStudents() {
+        return [SELECT Name, Email__c, Course__c, Marks__c FROM Student__c];
+    }
+}
+
+
+5. Execute Apex Code (Anonymous Window)
+In Developer Console → Debug → Open Execute Anonymous Window
+Enter the following:
+
+StudentHandler.createStudent('John Doe', 'john@example.com', 'Computer Engineering', 85);
+Check the box Open Log, then click Execute
+
+Check Debug Logs to verify execution
+
+To view inserted data:
+List<Student__c> students = StudentHandler.getAllStudents();
+System.debug(students);
+
+6. Verify in UI
+Go to App Launcher → Search for Students
+Click on it to view the inserted student records
+
