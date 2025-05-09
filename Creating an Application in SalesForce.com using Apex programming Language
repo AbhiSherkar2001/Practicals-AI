@@ -1,69 +1,49 @@
-Creating an Application in Salesforce.com Using Apex Programming 
-
-
-1. Prerequisites
-A Salesforce Developer Account
-Sign up at: https://developer.salesforce.com/signup
-Internet access and a modern web browser
-
-2. Log in to Salesforce Developer Console
-Open: https://login.salesforce.com
-Log in using your Developer account
-Click on the gear icon → Developer Console
-
-3. Create a Custom Object (Part of the Application)
-Go to Setup → Search for Objects → Click Object Manager
-Click Create → Custom Object
-Fill details:
-
-Label: Student
-
-Plural Label: Students
-
-Object Name: Student
-
-Enable options like "Allow Reports", "Track Field History", and click Save
-
-Add custom fields (e.g., Name, Email, Course, Marks)
-
-4. Create an Apex Class
-In the Developer Console:
-Click File → New → Apex Class
-Name: StudentHandler
-Paste the following code:
-public class StudentHandler {
-    
-    // Method to insert a student record
-    public static void createStudent(String name, String email, String course, Integer marks) {
-        Student__c s = new Student__c();
-        s.Name = name;
-        s.Email__c = email;
-        s.Course__c = course;
-        s.Marks__c = marks;
-        insert s;
-    }
-
-    // Method to fetch all students
-    public static List<Student__c> getAllStudents() {
-        return [SELECT Name, Email__c, Course__c, Marks__c FROM Student__c];
+ Creating an Application in SalesForce.com using Apex programming Language
+Step No 1: Create new org: 
+https://developer.salesforce.com/signup 
+Step No 2: After signup, logging using following URL https://login.salesforce.com/ 
+Step No 3: Login Page (Enter your credential to login) 
+1. Open Developer Console 
+2. File ---> New ---> Select Apex Class 
+3. Type LoginApp as apex class
+Code:
+public class LoginApp {
+    public static void login(String username, String password) {
+        if(username == 'admin' && password == 'pgmcoe123') {
+            System.debug('Login Successful! Welcome to the Application.');
+        } else {
+            System.debug('Invalid Credentials. Please try again.');
+        }
     }
 }
+Step:4 save code
+Step:5 Click on Debug → Open Execute Anonymous Window
+Paste this code:
+LoginApp.login('admin', 'pgmcoe123');
+*You can also try incorrect credentials:
+LoginApp.login('user', 'wrongpass'); 
+Step :6 Click Execute → Open Log → Click "Debug Only"
+You’ll see:
+For correct credentials:
+Login Successful! Welcome to the Application.
+*For wrong credentials:
+Invalid Credentials. Please try again.  
+
+Theory:
+Theory: Creating a Login Application in Salesforce using Apex
+In Salesforce, Apex is a strongly-typed, object-oriented programming language that allows developers to write custom business logic. Using Apex, we can simulate simple applications like a Login Page for learning and demonstration purposes.
+In this example, we are creating a basic Login functionality using a static method in an Apex class. This simulation checks if the user credentials match predefined values and displays an appropriate message.
+
+📝 Steps Explained:
+Create an Apex Class (LoginApp)
+The class contains a static method login(String username, String password) that accepts two parameters.
+Implement Login Logic
+Inside the method, we compare the input username and password with hardcoded values (admin and pgmcoe123). If they match, it displays a "Login Successful" message using System.debug. Otherwise, it shows an "Invalid Credentials" message.
+Execute Using Developer Console
+The method is called from the Execute Anonymous Window in the Developer Console using:
+LoginApp.login('admin', 'pgmcoe123');
+View Output in Logs
+After execution, the result is displayed in the logs (Debug Only), simulating a basic login system.
 
 
-5. Execute Apex Code (Anonymous Window)
-In Developer Console → Debug → Open Execute Anonymous Window
-Enter the following:
-
-StudentHandler.createStudent('John Doe', 'john@example.com', 'Computer Engineering', 85);
-Check the box Open Log, then click Execute
-
-Check Debug Logs to verify execution
-
-To view inserted data:
-List<Student__c> students = StudentHandler.getAllStudents();
-System.debug(students);
-
-6. Verify in UI
-Go to App Launcher → Search for Students
-Click on it to view the inserted student records
 
